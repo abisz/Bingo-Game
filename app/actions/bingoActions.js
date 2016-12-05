@@ -13,3 +13,9 @@ export function toggleTerm(term) {
     term: term
   }
 }
+
+export function startGame() {
+  return {
+    type: types.START_GAME
+  }
+}

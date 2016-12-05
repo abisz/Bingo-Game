@@ -8,8 +8,6 @@ import {
 } from 'react-native';
 import ListItem from '../ListItem';
 
-import styles from './styles';
-
 export default class TermSelection extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +36,7 @@ export default class TermSelection extends Component {
     });
 
     return (
-      <View style={styles.container}>
+      <View>
         <ScrollView>
           {terms}
         </ScrollView>

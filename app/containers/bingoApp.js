@@ -4,7 +4,7 @@ import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
 import { Text, View, Navigator, StatusBar } from 'react-native';
-import { Container, Header, Title, Content} from 'native-base';
+import { Container, Header, Title, Content, Button} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
 import TermSelection from '../components/TermSelection';
@@ -14,13 +14,20 @@ class BingoApp extends Component {
   constructor(props) {
     super(props);
   }
+  
+  clickStart() {
+    console.log('START THE GAME');
+    console.log(this.props.actions.startGame());
+
+
+  }
 
   render() {
     const {state, actions} = this.props;
 
-    console.log(state);
+    // console.log(state);
 
-    let view, title;
+    let view, title, playBtn;
 
     if ( ! state.deckSelected ) {
       title = 'Deck Selection';
@@ -30,11 +37,19 @@ class BingoApp extends Component {
 
     } else if ( ! state.started ) {
       title = 'Term Selection';
+      
       view = (<TermSelection
         terms={state.terms}
         deck={state.deckSelected}
         selected={state.termsSelected}
         actions={actions} />);
+
+      if (state.readyToPlay) {
+        playBtn = (<Button transparent
+        onPress={() => this.clickStart()}>
+          <Text>Start</Text>
+        </Button>);
+      }
     } else {
       title = 'Game';
       view = (<Game />);
@@ -42,16 +57,15 @@ class BingoApp extends Component {
 
     return (
       <Container>
-        <Header>
+        <Header iconRight>
           <Title>{title}</Title>
+          { playBtn }
         </Header>
         <Content>
           {view}
         </Content>
       </Container>
     );
-
-
   }
 }
 

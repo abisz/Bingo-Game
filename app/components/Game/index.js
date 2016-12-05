@@ -8,9 +8,7 @@ export default class Game extends Component {
 
   render() {
     return (
-      <View >
-        <Text>Game</Text>
-      </View>
+      <View ></View>
     );
   }
 }

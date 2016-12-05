@@ -11,10 +11,9 @@ const initialState = {
     'Elrond', 'Boromir', 'Nekromant', 'Galadriel'],
   termsSelected: ['Hermine', 'Ron', 'Harry', 'Serious', 'Hagrid',
     'Dumbledore', 'Voldemort', 'Petunia', 'Snape', 'Goyle',
-    'Fred', 'Ginny', 'George', 'Dudley', 'Fleur', 'Lupin',
+    'Fred', 'Ginny', 'George', 'Dudley', 'Fleur',
     'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
     'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli'],
-  readyToPlay: false,
   started: false
 };
 
@@ -43,6 +42,12 @@ export default function bingo(state = initialState, action = {}) {
         ...state,
         termsSelected: selected,
         readyToPlay
+      };
+
+    case types.START_GAME:
+      return {
+        ...state,
+        started: true
       };
 
     default:
