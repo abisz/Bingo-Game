@@ -19,14 +19,20 @@ export default class Game extends Component {
     super(props);
   }
 
+  isActive(term) {
+    return this.props.activeCells.includes(term);
+  }
+
   render() {
 
     const cells = [];
 
     this.props.terms.forEach( (term) => {
       cells.push(
-        <Cell term={term}
-        action={this.props.actions.toggleCell}/>
+        <Cell
+          term={term}
+          action={this.props.actions.toggleCell}
+          active={this.isActive(term)}/>
       )
     });
 

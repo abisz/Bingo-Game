@@ -55,6 +55,7 @@ class BingoApp extends Component {
       view = (<Game
         terms={state.termsSelected}
         actions={actions}
+        activeCells={state.activeCells}
       />);
     }
 

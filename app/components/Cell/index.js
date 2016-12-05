@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, TouchableHighlight, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, TouchableHighlight, Text, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   cell: {
@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
     margin: 2,
     borderRadius: 5,
     backgroundColor: '#EDD834'
+  },
+  active: {
+    backgroundColor: '#ff0000'
   },
   cellText: {
     fontSize: 12,
@@ -29,11 +32,14 @@ export default class Cell extends Component{
   }
 
   render() {
-    const {height, width} = Dimensions.get('window');
+
+    const cellStyle = [styles.cell];
+
+    if (this.props.active) cellStyle.push(styles.active);
 
     return (
       <TouchableHighlight
-        style={styles.cell}
+        style={StyleSheet.flatten(cellStyle)}
         onPress={() => this.pressed()}>
         <Text style={styles.cellText}>{this.props.term}</Text>
       </TouchableHighlight>
