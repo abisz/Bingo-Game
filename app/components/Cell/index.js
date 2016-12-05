@@ -12,11 +12,19 @@ export default class Cell extends Component{
     super(props);
   }
 
+  pressed() {
+    console.log('Pressed', this.props.term);
+
+    this.props.action(this.props.term);
+  }
+
   render() {
     const {height, width} = Dimensions.get('window');
 
     return (
-      <TouchableHighlight style={styles.cell}>
+      <TouchableHighlight
+        style={styles.cell}
+        onPress={() => this.pressed()}>
         <Text>{this.props.term}</Text>
       </TouchableHighlight>
     );

@@ -25,6 +25,8 @@ class BingoApp extends Component {
 
     console.log(state);
 
+    if(state.bingo) console.log('BINGOOOOOOO!!!');
+
     let view, title, playBtn;
 
     if ( ! state.deckSelected ) {
@@ -52,6 +54,7 @@ class BingoApp extends Component {
       title = 'Game';
       view = (<Game
         terms={state.termsSelected}
+        actions={actions}
       />);
     }
 

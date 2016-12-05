@@ -14,6 +14,7 @@ const initialState = {
     'Fred', 'Ginny', 'George', 'Dudley', 'Fleur',
     'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
     'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli'],
+  activeCells: [],
   started: false
 };
 
@@ -54,6 +55,25 @@ export default function bingo(state = initialState, action = {}) {
         started: true
       };
 
+    case types.TOGGLE_CELL:
+
+      const term = action.term;
+      let activeCells;
+
+      if (state.activeCells.includes(term)) {
+        activeCells = state.activeCells.filter( (t) => t != term);
+      } else {
+        activeCells = state.activeCells.concat([term]);
+      }
+
+      const bingo = getBingo(activeCells.map( c => state.termsSelected.indexOf(c)));
+
+      return {
+        ...state,
+        activeCells,
+        bingo
+      };
+
     default:
       return state;
   }
@@ -66,4 +86,22 @@ function shuffle(a) {
     [b[i - 1], b[j]] = [b[j], b[i - 1]];
   }
   return b;
+}
+
+function getBingo(activeCells) {
+  // columns
+  for (let i = 0; i < 5; i++) {
+    if (activeCells.filter( c => c % 5 === i).length === 5) return true;
+  }
+
+  // rows
+  for (let i = 1; i <= 5; i++) {
+    if (activeCells.filter( c => c >= (i-1) * 5 && c < i * 5).length === 5) return true;
+  }
+
+  // diagonal
+  if (activeCells.filter(c => c === 0 || c === 6 || c === 12 || c === 18 || c === 24).length ===5) return true;
+  if (activeCells.filter(c => c === 4 || c === 8 || c === 12 || c === 16 || c === 20).length ===5) return true;
+
+  return false;
 }
