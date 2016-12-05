@@ -26,7 +26,6 @@ export default class DeckSelection extends Component {
 
     return (
       <View>
-        <Text>Deck Selection</Text>
         {decks}
       </View>
     );

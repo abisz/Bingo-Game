@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 
-import styles from './styles';
-
 export default class ListItem extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +12,7 @@ export default class ListItem extends Component {
       <Button
       onPress={this.props.select}
       title={this.props.name}
-      style={styles.selected}
+      color={this.props.selected ? 'green' : 'grey'}
       />
     );
   }

@@ -9,7 +9,11 @@ const initialState = {
     'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
     'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli',
     'Elrond', 'Boromir', 'Nekromant', 'Galadriel'],
-  termsSelected: [],
+  termsSelected: ['Hermine', 'Ron', 'Harry', 'Serious', 'Hagrid',
+    'Dumbledore', 'Voldemort', 'Petunia', 'Snape', 'Goyle',
+    'Fred', 'Ginny', 'George', 'Dudley', 'Fleur', 'Lupin',
+    'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
+    'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli'],
   readyToPlay: false,
   started: false
 };

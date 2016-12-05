@@ -32,7 +32,7 @@ export default class TermSelection extends Component {
     this.props.terms.forEach( (term) => {
       terms.push(<ListItem
         name={term}
-        style={this.isSelected(term) ? 'styles.selected' : ''}
+        selected={ this.isSelected(term) }
         select={() => this.itemClicked(term)}
       />)
     });
@@ -40,7 +40,6 @@ export default class TermSelection extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Text>Term Selection ({this.props.deck})</Text>
           {terms}
         </ScrollView>
       </View>
