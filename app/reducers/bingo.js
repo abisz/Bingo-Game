@@ -45,12 +45,25 @@ export default function bingo(state = initialState, action = {}) {
       };
 
     case types.START_GAME:
+
+      const termsShuffled = shuffle(state.termsSelected);
+
       return {
         ...state,
+        termsSelected: termsShuffled,
         started: true
       };
 
     default:
       return state;
   }
+}
+
+function shuffle(a) {
+  const b = Object.assign([], a);
+  for (let i = b.length; i; i--) {
+    let j = Math.floor(Math.random() * i);
+    [b[i - 1], b[j]] = [b[j], b[i - 1]];
+  }
+  return b;
 }
