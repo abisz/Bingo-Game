@@ -1,9 +1,9 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-  deckAll: ['Harry Potter', 'Meeting', 'Lord of the Rings'],
-  deckSelected: 'Harry Potter',
-  readyToPlay: true
+  decksAll: ['Harry Potter', 'Meeting', 'Lord of the Rings'],
+  deckSelected: false,
+  readyToPlay: false
 };
 
 export default function bingo(state = initialState, action = {}) {

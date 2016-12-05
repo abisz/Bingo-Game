@@ -14,12 +14,17 @@ class BingoApp extends Component {
   }
 
   render() {
-    const state = this.props.state.bingo;
-    const actions = this.props.action;
+    const {state, actions} = this.props;
+
+    console.log('bingoApp - actions:');
+    console.log(actions);
+
 
     if ( ! state.deckSelected ) {
       return (
-        <DeckSelection/>
+        <DeckSelection
+          decks={state.decksAll}
+          actions={actions} />
       );
     } else if ( ! state.readyToPlay ) {
       return (
@@ -36,7 +41,7 @@ class BingoApp extends Component {
 }
 
 export default connect(state => ({
-    state: state
+    state: state.bingo
   }),
   (dispatch) => ({
     actions: bindActionCreators(bingoActions, dispatch)
