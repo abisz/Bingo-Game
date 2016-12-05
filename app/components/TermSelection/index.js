@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   ScrollView
 } from 'react-native';
-import ListItem from '../ListItem';
 
 import styles from './styles';
+
+import { ListItem, CheckBox, Text } from 'native-base';
 
 export default class TermSelection extends Component {
   constructor(props) {
@@ -30,11 +30,21 @@ export default class TermSelection extends Component {
     let terms = [];
 
     this.props.terms.forEach( (term) => {
+      terms.push(
+        <ListItem>
+        <CheckBox checked={true} />
+        <Text>{term}</Text>
+        </ListItem>)
+
+
+    /*
+      this.props.terms.forEach( (term) => {
       terms.push(<ListItem
         name={term}
         selected={ this.isSelected(term) }
         select={() => this.itemClicked(term)}
       />)
+      */
     });
 
     return (
