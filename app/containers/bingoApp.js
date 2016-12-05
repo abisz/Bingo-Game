@@ -23,7 +23,7 @@ class BingoApp extends Component {
   render() {
     const {state, actions} = this.props;
 
-    // console.log(state);
+    console.log(state);
 
     let view, title, playBtn;
 
@@ -50,7 +50,9 @@ class BingoApp extends Component {
       }
     } else {
       title = 'Game';
-      view = (<Game />);
+      view = (<Game
+        terms={state.termsSelected}
+      />);
     }
 
     return (
