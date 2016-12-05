@@ -19,3 +19,10 @@ export function startGame() {
     type: types.START_GAME
   }
 }
+
+export function toggleCell(term) {
+  return {
+    type: types.TOGGLE_CELL,
+    term: term
+  }
+}

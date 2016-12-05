@@ -25,7 +25,8 @@ export default class Game extends Component {
 
     this.props.terms.forEach( (term) => {
       cells.push(
-        <Cell term={term}/>
+        <Cell term={term}
+        action={this.props.actions.toggleCell}/>
       )
     });
 

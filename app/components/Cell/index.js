@@ -22,13 +22,21 @@ export default class Cell extends Component{
     super(props);
   }
 
+  pressed() {
+    console.log('Pressed', this.props.term);
+
+    this.props.action(this.props.term);
+  }
+
   render() {
     const {height, width} = Dimensions.get('window');
 
     return (
-      <View style={styles.cell}>
+      <TouchableHighlight
+        style={styles.cell}
+        onPress={() => this.pressed()}>
         <Text style={styles.cellText}>{this.props.term}</Text>
-      </View>
+      </TouchableHighlight>
     );
   }
 }

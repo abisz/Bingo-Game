@@ -1,8 +1,11 @@
 import * as types from '../actions/actionTypes';
 
+const bingoSize = 4;
+
 const initialState = {
   decksAll: ['Harry Potter', 'Meeting', 'Lord of the Rings', 'Eurovision Song Contest'],
   deckSelected: true,
+  activeCells: [],
   terms: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
   'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
   'Kein außergewöhnlicher Sound \nund vorhersehbare Tanzschritte', 'Es gibt einen Schwiegersohnliebling',
@@ -60,6 +63,25 @@ export default function bingo(state = initialState, action = {}) {
         started: true
       };
 
+    case types.TOGGLE_CELL:
+
+      const term = action.term;
+      let activeCells;
+
+      if (state.activeCells.includes(term)) {
+        activeCells = state.activeCells.filter( (t) => t != term);
+      } else {
+        activeCells = state.activeCells.concat([term]);
+      }
+
+      const bingo = getBingo(activeCells.map( c => state.termsSelected.indexOf(c)));
+
+      return {
+        ...state,
+        activeCells,
+        bingo
+      };
+
     default:
       return state;
   }
@@ -72,4 +94,25 @@ function shuffle(a) {
     [b[i - 1], b[j]] = [b[j], b[i - 1]];
   }
   return b;
+}
+
+function getBingo(activeCells) {
+
+  // columns
+  for (let i = 0; i < bingoSize; i++) {
+    if (activeCells.filter( c => c % bingoSize === i).length === bingoSize) return true;
+  }
+
+  // rows
+  for (let i = 1; i <= bingoSize; i++) {
+    if (activeCells.filter( c => c >= (i-1) * bingoSize && c < i * bingoSize).length === bingoSize) return true;
+  }
+
+  // diagonal
+  // if (activeCells.filter(c => c === 0 || c === 6 || c === 12 || c === 18 || c === 24).length === 5) return true;
+  // if (activeCells.filter(c => c === 4 || c === 8 || c === 12 || c === 16 || c === 20).length === 5) return true;
+  if (activeCells.filter(c => c === 0 || c === 5 || c === 10 || c === 15 ).length === 4) return true;
+  if (activeCells.filter(c => c === 3 || c === 6 || c === 9 || c === 12 ).length === 4) return true;
+
+  return false;
 }
