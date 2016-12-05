@@ -1,20 +1,28 @@
 import * as types from '../actions/actionTypes';
 
+const bingoSize = 4;
+
 const initialState = {
-  decksAll: ['Harry Potter', 'Meeting', 'Lord of the Rings'],
+  decksAll: ['Harry Potter', 'Meeting', 'Lord of the Rings', 'Eurovision Song Contest'],
   deckSelected: false,
-  terms: ['Hermine', 'Ron', 'Harry', 'Serious', 'Hagrid',
-    'Dumbledore', 'Voldemort', 'Petunia', 'Snape', 'Goyle',
-    'Fred', 'Ginny', 'George', 'Dudley', 'Fleur', 'Lupin',
-    'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
-    'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli',
-    'Elrond', 'Boromir', 'Nekromant', 'Galadriel'],
-  termsSelected: ['Hermine', 'Ron', 'Harry', 'Serious', 'Hagrid',
-    'Dumbledore', 'Voldemort', 'Petunia', 'Snape', 'Goyle',
-    'Fred', 'Ginny', 'George', 'Dudley', 'Fleur',
-    'Dolores', 'Gandalf', 'Bilbo', 'Sam', 'Aragorn',
-    'Frodo', 'Legolas', 'Gollum', 'Arwen', 'Gimli'],
   activeCells: [],
+  terms: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
+  'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
+  'Kein außergewöhnlicher Sound \nund vorhersehbare Tanzschritte', 'Es gibt einen Schwiegersohnliebling',
+  'Outfits der Teilnehmer \nleuchten wie Diskokugeln', 'Nachbarschaftshilfe bei Ostblock-Staaten',
+  'Bei Make-up gilt: Klotzen statt Kleckern', '\"This is ... calling\"', 'Mindestens eine Landesmoderatorin verwendet Botox',
+  '\"It\'s Eurovision Tradition\"', 'Im letzten Jahr hat dieser Stil funktioniert', 'Ralph Siegel ist wieder dabei',
+  'Übertriebenes Flaggenwedeln \nund Verteilen von Handküsschen', 'Punkte-Mafia bei den kleineren Ländern',
+  '\"Thank you sooooooo \nmuch for the wonderful show!\"', 'Interpret gibt sich seinem \nLied voll und ganz hin',
+  'Geschichtsträchtiger Song', 'Background Sänger singen \nbesser als eigentliche Performer',
+  'Spar-Grand-Prix mit nur einer \nModeratorin und weniger Budget', 'Irgendjemand spielt an der Nebelmaschine',
+  'Kleider der Sängerinnen bedecken \nnur das Notwendigste', 'more', 'more', 'more', 'more'],
+  termsSelected: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
+    'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
+    'Irgendjemand spielt an der Nebelmaschine', 'Es gibt einen Schwiegersohnliebling',
+    'Outfits der Teilnehmer \nleuchten wie Diskokugeln', 'Nachbarschaftshilfe bei Ostblock-Staaten',
+    'Bei Make-up gilt: Klotzen statt Kleckern', '\"This is ... calling\"', 'Mindestens eine Landesmoderatorin verwendet Botox',
+    '\"It\'s Eurovision Tradition\"', 'Im letzten Jahr hat dieser Stil funktioniert', 'Ralph Siegel ist wieder dabei'],
   started: false
 };
 
@@ -37,7 +45,7 @@ export default function bingo(state = initialState, action = {}) {
         selected = state.termsSelected.concat([action.term]);
       }
 
-      const readyToPlay = (selected.length === 25);
+      const readyToPlay = (selected.length === 16);
 
       return {
         ...state,
@@ -89,19 +97,22 @@ function shuffle(a) {
 }
 
 function getBingo(activeCells) {
+
   // columns
-  for (let i = 0; i < 5; i++) {
-    if (activeCells.filter( c => c % 5 === i).length === 5) return true;
+  for (let i = 0; i < bingoSize; i++) {
+    if (activeCells.filter( c => c % bingoSize === i).length === bingoSize) return true;
   }
 
   // rows
-  for (let i = 1; i <= 5; i++) {
-    if (activeCells.filter( c => c >= (i-1) * 5 && c < i * 5).length === 5) return true;
+  for (let i = 1; i <= bingoSize; i++) {
+    if (activeCells.filter( c => c >= (i-1) * bingoSize && c < i * bingoSize).length === bingoSize) return true;
   }
 
   // diagonal
-  if (activeCells.filter(c => c === 0 || c === 6 || c === 12 || c === 18 || c === 24).length ===5) return true;
-  if (activeCells.filter(c => c === 4 || c === 8 || c === 12 || c === 16 || c === 20).length ===5) return true;
+  // if (activeCells.filter(c => c === 0 || c === 6 || c === 12 || c === 18 || c === 24).length === 5) return true;
+  // if (activeCells.filter(c => c === 4 || c === 8 || c === 12 || c === 16 || c === 20).length === 5) return true;
+  if (activeCells.filter(c => c === 0 || c === 5 || c === 10 || c === 15 ).length === 4) return true;
+  if (activeCells.filter(c => c === 3 || c === 6 || c === 9 || c === 12 ).length === 4) return true;
 
   return false;
 }
