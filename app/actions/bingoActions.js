@@ -1,7 +1,15 @@
 import * as types from './actionTypes';
 
-export function increment() {
+export function selectDeck(deck) {
   return {
-    type: types.EXAMPLE
+    type: types.SELECT_DECK,
+    deck: deck
   };
+}
+
+export function toggleTerm(term) {
+  return {
+    type: types.TOGGLE_TERM,
+    term: term
+  }
 }
