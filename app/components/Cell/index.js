@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, Text, StyleSheet, Dimensions} from 'react-native';
+import {View, TouchableHighlight, Text, StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   cell: {
-
+    width: 88,
+    height: 110,
+    padding: 6,
+    margin: 2,
+    borderRadius: 5,
+    backgroundColor: '#EDD834'
+  },
+  cellText: {
+    fontSize: 12,
+    backgroundColor: 'transparent',
+    textAlign: 'center'
   }
 });
 
@@ -16,9 +26,9 @@ export default class Cell extends Component{
     const {height, width} = Dimensions.get('window');
 
     return (
-      <TouchableHighlight style={styles.cell}>
-        <Text>{this.props.term}</Text>
-      </TouchableHighlight>
+      <View style={styles.cell}>
+        <Text style={styles.cellText}>{this.props.term}</Text>
+      </View>
     );
   }
 }
