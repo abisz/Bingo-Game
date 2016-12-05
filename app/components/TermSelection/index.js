@@ -29,20 +29,14 @@ export default class TermSelection extends Component {
 
     this.props.terms.forEach( (term) => {
       terms.push(
-        <ListItem>
-        <CheckBox checked={true} />
-        <Text>{term}</Text>
-        </ListItem>)
+        <ListItem
+          onPress={() => this.itemClicked(term)}>
+          <CheckBox
+            checked={this.isSelected(term)}
+            onPress={() => this.itemClicked(term)}/>
+          <Text>{term}</Text>
+        </ListItem>);
 
-
-    /*
-      this.props.terms.forEach( (term) => {
-      terms.push(<ListItem
-        name={term}
-        selected={ this.isSelected(term) }
-        select={() => this.itemClicked(term)}
-      />)
-      */
     });
 
     return (

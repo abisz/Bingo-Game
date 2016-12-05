@@ -18,8 +18,6 @@ class BingoApp extends Component {
   clickStart() {
     console.log('START THE GAME');
     console.log(this.props.actions.startGame());
-
-
   }
 
   render() {
