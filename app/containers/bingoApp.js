@@ -16,9 +16,7 @@ class BingoApp extends Component {
   render() {
     const {state, actions} = this.props;
 
-    console.log('bingoApp - actions:');
-    console.log(actions);
-
+    console.log(state);
 
     if ( ! state.deckSelected ) {
       return (
@@ -26,9 +24,13 @@ class BingoApp extends Component {
           decks={state.decksAll}
           actions={actions} />
       );
-    } else if ( ! state.readyToPlay ) {
+    } else if ( ! state.started ) {
       return (
-        <TermSelection />
+        <TermSelection
+          terms={state.terms}
+          deck={state.deckSelected}
+          selected={state.termsSelected}
+          actions={actions} />
       );
     } else {
       return (
