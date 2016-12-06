@@ -4,7 +4,7 @@ import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
 import { AlertIOS, Text } from 'react-native';
-import { Container, Header, Title, Content, Button, Icon, Fab} from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, Fab, Spinner} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
 import TermSelection from '../components/TermSelection';
@@ -64,7 +64,7 @@ class BingoApp extends Component {
     console.log(store.getState().bingo);
 
 
-    let view, title, playBtn, backBtn, fab;
+    let view, title, playBtn, backBtn, fab, spinner;
 
     backBtn = (<Button transparent
                        onPress={() => this.clickBack()}>
@@ -129,6 +129,10 @@ class BingoApp extends Component {
       </Fab>);
     }
 
+    if (!state.decksAll[0]) {
+      spinner = (<Spinner color='#4CD4B0' />);
+    }
+
     return (
       <Container>
         <Header >
@@ -137,6 +141,7 @@ class BingoApp extends Component {
           { playBtn }
         </Header>
         <Content>
+          {spinner}
           {view}
         </Content>
         {fab}
