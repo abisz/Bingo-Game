@@ -33,3 +33,12 @@ export function decksLoaded(decks) {
     decks
   }
 }
+
+export function termsLaoded(terms) {
+  console.log('ACTION TRIGGERED');
+
+  return {
+    type: types.TERMS_LOADED,
+    terms
+  }
+}

@@ -9,8 +9,30 @@ import {
 import { ListItem, CheckBox, Text } from 'native-base';
 
 export default class TermSelection extends Component {
-  constructor(props) {
-    super(props);
+
+  listenForTerms(firebaseRef) {
+    firebaseRef.on('value', (snap) => {
+      let termsList = [];
+
+      snap.forEach( (decks) => {
+
+        for (const deckName in decks.val()) {
+          const deck = decks.val()[deckName];
+
+          if ( deck.title === this.props.deck ) {
+            termsList = deck.terms;
+          }
+        }
+      });
+
+      this.props.actions.termsLoaded(termsList);
+    });
+  }
+
+  componentDidMount() {
+    if ( ! this.props.terms[0] ) {
+      this.listenForTerms(this.props.firebase);
+    }
   }
 
   isSelected(term) {
@@ -18,9 +40,6 @@ export default class TermSelection extends Component {
   }
 
   itemClicked(term) {
-    console.log('Term Clicked');
-    console.log(term);
-
     this.props.actions.toggleTerm(term);
   }  
   

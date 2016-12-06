@@ -6,23 +6,8 @@ const initialState = {
   decksAll: [],
   deckSelected: false,
   activeCells: [],
-  terms: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
-  'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
-  'Kein außergewöhnlicher Sound \nund vorhersehbare Tanzschritte', 'Es gibt einen Schwiegersohnliebling',
-  'Outfits der Teilnehmer \nleuchten wie Diskokugeln', 'Nachbarschaftshilfe bei Ostblock-Staaten',
-  'Bei Make-up gilt: Klotzen statt Kleckern', '\"This is ... calling\"', 'Mindestens eine Landesmoderatorin verwendet Botox',
-  '\"It\'s Eurovision Tradition\"', 'Im letzten Jahr hat dieser Stil funktioniert', 'Ralph Siegel ist wieder dabei',
-  'Übertriebenes Flaggenwedeln \nund Verteilen von Handküsschen', 'Punkte-Mafia bei den kleineren Ländern',
-  '\"Thank you sooooooo \nmuch for the wonderful show!\"', 'Interpret gibt sich seinem \nLied voll und ganz hin',
-  'Geschichtsträchtiger Song', 'Background Sänger singen \nbesser als eigentliche Performer',
-  'Spar-Grand-Prix mit nur einer \nModeratorin und weniger Budget', 'Unendlich viel Nebel auf der Bühne',
-  'Kleider der Sängerinnen bedecken \nnur das Notwendigste', 'more', 'more', 'more', 'more'],
-  termsSelected: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
-    'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
-    'Unendlich viel Nebel auf der Bühne', 'Es gibt einen Schwiegersohnliebling',
-    'Outfits der Teilnehmer \nleuchten wie Diskokugeln', 'Nachbarschaftshilfe bei Ostblock-Staaten',
-    'Bei Make-up gilt: Klotzen statt Kleckern', '\"This is ... calling\"', 'Mindestens eine Landesmoderatorin verwendet Botox',
-    '\"It\'s Eurovision Tradition\"', 'Im letzten Jahr hat dieser Stil funktioniert', 'Ralph Siegel ist wieder dabei'],
+  terms: [],
+  termsSelected: [],
   started: false
 };
 
@@ -87,6 +72,12 @@ export default function bingo(state = initialState, action = {}) {
       return {
         ...state,
         decksAll: action.decks
+      };
+
+    case types.TERMS_LOADED:
+      return {
+        ...state,
+        terms: action.terms
       };
 
     default:

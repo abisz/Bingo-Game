@@ -1,25 +1,11 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
-import * as firebase from 'firebase';
-import secret from '../../../secret';
-
 import ListItem from '../ListItem';
 
-const firebaseConfig = secret;
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
 export default class DeckSelection extends Component {
-  constructor(props) {
-    super(props);
-
-    this.decksRef = firebaseApp.database().ref();
-
-  }
 
   listenForDecks(decksRef) {
-    console.log('LISTENING FOR DECKS!');
-
     decksRef.on('value', (snap) => {
       const deckList = [];
 
@@ -36,7 +22,7 @@ export default class DeckSelection extends Component {
   
   componentDidMount() {
     if ( ! this.props.decks[0]) {
-      this.listenForDecks(this.decksRef);
+      this.listenForDecks(this.props.firebase);
     }
   }
   

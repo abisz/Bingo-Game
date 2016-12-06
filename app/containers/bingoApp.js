@@ -10,9 +10,17 @@ import DeckSelection from '../components/DeckSelection';
 import TermSelection from '../components/TermSelection';
 import Game from '../components/Game';
 
+import * as firebase from 'firebase';
+import secret from '../../secret';
+
+const firebaseApp = firebase.initializeApp(secret);
+
 class BingoApp extends Component {
   constructor(props) {
     super(props);
+
+    this.firebaseRef = firebaseApp.database().ref();
+
   }
   
   clickStart() {
@@ -33,7 +41,8 @@ class BingoApp extends Component {
       title = 'Deck Selection';
       view = (<DeckSelection
         decks={state.decksAll}
-        actions={actions} />);
+        actions={actions}
+        firebase={this.firebaseRef} />);
 
     } else if ( ! state.started ) {
       title = 'Term Selection';
@@ -42,7 +51,8 @@ class BingoApp extends Component {
         terms={state.terms}
         deck={state.deckSelected}
         selected={state.termsSelected}
-        actions={actions} />);
+        actions={actions}
+        firebase={this.firebaseRef}/>);
 
       if (state.readyToPlay) {
         playBtn = (<Button transparent
