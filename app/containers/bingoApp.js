@@ -24,7 +24,6 @@ class BingoApp extends Component {
   }
   
   clickStart() {
-    console.log('START THE GAME');
     this.props.actions.startGame();
   }
 
@@ -32,24 +31,20 @@ class BingoApp extends Component {
     this.props.actions.back();
   }
 
-  isDeckSelection() {
-    return this.props.state.terms.length === 0;
-  }
-
   add() {
     AlertIOS.prompt(
-      'Name of ' + (this.isDeckSelection() ? "Deck" : "Term"),
+      'Name of ' + this.props.state.view,
       '',
       [
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'Save', onPress: name => this.save(name, this.isDeckSelection())},
+        {text: 'Save', onPress: name => this.save(name)},
       ]
     );
   }
 
-  save(name, isDeck) {
+  save(name) {
 
-    if (isDeck) {
+    if (this.props.state.view === 'Deck') {
       this.firebaseRef.child('decks').push({
         title: name,
         terms: []
@@ -59,8 +54,6 @@ class BingoApp extends Component {
         title: name
       })
     }
-
-
   }
 
   render() {
@@ -85,7 +78,7 @@ class BingoApp extends Component {
 
     } else if ( ! state.started ) {
       title = 'Term Selection';
-      
+
       view = (<TermSelection
         terms={state.terms}
         deck={state.deckSelected}

@@ -19,8 +19,8 @@ export default class TermSelection extends Component {
         for (const deckName in decks.val()) {
           const deck = decks.val()[deckName];
 
-          if ( deck.title === this.props.deck ) {
-            termsList = deck.terms;
+          if ( deckName === this.props.deck ) {
+            termsList = deck.terms || [];
           }
         }
       });
@@ -46,17 +46,18 @@ export default class TermSelection extends Component {
   render() {
     let terms = [];
 
-    this.props.terms.forEach( (term) => {
+    for (const termkey in this.props.terms) {
+      const term = this.props.terms[termkey];
       terms.push(
-        <ListItem
-          onPress={() => this.itemClicked(term)}>
-          <CheckBox
-            checked={this.isSelected(term)}
-            onPress={() => this.itemClicked(term)}/>
-          <Text>{term}</Text>
-        </ListItem>);
-
-    });
+          <ListItem
+            onPress={() => this.itemClicked(term)}>
+            <CheckBox
+              checked={this.isSelected(term)}
+              onPress={() => this.itemClicked(term)}/>
+            <Text>{term.title}</Text>
+          </ListItem>
+      );
+    }
 
     return (
       <View>

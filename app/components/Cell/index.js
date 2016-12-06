@@ -26,8 +26,6 @@ export default class Cell extends Component{
   }
 
   pressed() {
-    console.log('Pressed', this.props.term);
-
     this.props.action(this.props.term);
   }
 
