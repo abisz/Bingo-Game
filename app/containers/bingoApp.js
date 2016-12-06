@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
-import { AlertIOS } from 'react-native';
+import { AlertIOS, Text } from 'react-native';
 import { Container, Header, Title, Content, Button, Icon} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
@@ -67,6 +67,10 @@ class BingoApp extends Component {
         onPress={() => this.clickStart()}>
           <Icon name="ios-play" />
         </Button>);
+      } else {
+        playBtn = (<Button disabled transparent>
+          <Text>{state.termsSelected.length}/16</Text>
+        </Button>)
       }
     } else {
       title = 'Game';
