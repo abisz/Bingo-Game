@@ -35,10 +35,14 @@ export function decksLoaded(decks) {
 }
 
 export function termsLoaded(terms) {
-  console.log('ACTION TRIGGERED');
-
   return {
     type: types.TERMS_LOADED,
     terms
+  }
+}
+
+export function back() {
+  return {
+    type: types.BACK
   }
 }

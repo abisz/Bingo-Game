@@ -3,8 +3,8 @@ import {bindActionCreators} from 'redux';
 import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
-import { Text, AlertIOS } from 'react-native';
-import { Container, Header, Title, Content, Button} from 'native-base';
+import { AlertIOS } from 'react-native';
+import { Container, Header, Title, Content, Button, Icon} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
 import TermSelection from '../components/TermSelection';
@@ -25,20 +25,28 @@ class BingoApp extends Component {
   
   clickStart() {
     console.log('START THE GAME');
-    console.log(this.props.actions.startGame());
+    this.props.actions.startGame();
+  }
+
+  clickBack() {
+    this.props.actions.back();
   }
 
   render() {
     const {state, actions} = this.props;
 
-    console.log(state);
+    // console.log(state);
 
-    if(state.bingo) console.log('BINGOOOOOOO!!!');
+    let view, title, playBtn, backBtn;
 
-    let view, title, playBtn;
+    backBtn = (<Button transparent
+                       onPress={() => this.clickBack()}>
+      <Icon name='ios-arrow-back' />
+    </Button>);
 
     if ( ! state.deckSelected ) {
       title = 'Deck Selection';
+      backBtn = '';
       view = (<DeckSelection
         decks={state.decksAll}
         actions={actions}
@@ -57,7 +65,7 @@ class BingoApp extends Component {
       if (state.readyToPlay) {
         playBtn = (<Button transparent
         onPress={() => this.clickStart()}>
-          <Text>Start</Text>
+          <Icon name="ios-play" />
         </Button>);
       }
     } else {
@@ -78,7 +86,8 @@ class BingoApp extends Component {
 
     return (
       <Container>
-        <Header iconRight>
+        <Header >
+          { backBtn }
           <Title>{title}</Title>
           { playBtn }
         </Header>

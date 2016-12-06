@@ -45,7 +45,8 @@ export default function bingo(state = initialState, action = {}) {
       return {
         ...state,
         termsSelected: termsShuffled,
-        started: true
+        started: true,
+        activeCells: []
       };
 
     case types.TOGGLE_CELL:
@@ -79,6 +80,25 @@ export default function bingo(state = initialState, action = {}) {
         ...state,
         terms: action.terms
       };
+
+    case types.BACK:
+      if (state.started) {
+        // Game
+        return {
+          ...state,
+          started: false
+        }
+      } else {
+        // Term selection
+        return {
+          ...state,
+          terms: [],
+          termsSelected: [],
+          deckSelected: false,
+          readyToPlay: false
+        }
+      }
+
 
     default:
       return state;
