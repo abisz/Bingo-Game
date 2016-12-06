@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
-import { Text, View, Navigator, StatusBar } from 'react-native';
+import { Text, AlertIOS } from 'react-native';
 import { Container, Header, Title, Content, Button} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
@@ -67,6 +67,13 @@ class BingoApp extends Component {
         actions={actions}
         activeCells={state.activeCells}
       />);
+    }
+
+    if (state.bingo) {
+      AlertIOS.alert(
+        'Christopher Waltz',
+        'Oooh, that\'s a BINGO!'
+      );
     }
 
     return (

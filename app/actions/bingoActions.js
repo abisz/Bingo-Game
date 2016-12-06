@@ -34,7 +34,7 @@ export function decksLoaded(decks) {
   }
 }
 
-export function termsLaoded(terms) {
+export function termsLoaded(terms) {
   console.log('ACTION TRIGGERED');
 
   return {
