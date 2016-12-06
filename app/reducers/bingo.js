@@ -57,7 +57,7 @@ export default function bingo(state = initialState, action = {}) {
       let activeCells;
 
       if (state.activeCells.includes(term)) {
-        activeCells = state.activeCells.filter( (t) => t != term);
+        activeCells = state.activeCells.filter( (t) => t.key !== term.key);
       } else {
         activeCells = state.activeCells.concat([term]);
       }
@@ -78,9 +78,29 @@ export default function bingo(state = initialState, action = {}) {
       };
 
     case types.TERMS_LOADED:
+
+      const terms = [];
+
+      for (const key in action.terms) {
+        terms.push({
+          key,
+          title: action.terms[key].title
+        });
+      }
+
+      const termsSelected = shuffle(terms).slice(0, 16);
+
+      console.log('LOADED SHUFFLE');
+      console.log(termsSelected.length);
+      // console.log(action.terms);
+
+      const rtp = (termsSelected.length === 16);
+
       return {
         ...state,
-        terms: action.terms
+        terms,
+        termsSelected,
+        readyToPlay: rtp
       };
 
     case types.BACK:
@@ -101,7 +121,6 @@ export default function bingo(state = initialState, action = {}) {
           view: 'Deck'
         }
       }
-
 
     default:
       return state;

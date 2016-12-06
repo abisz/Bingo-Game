@@ -33,13 +33,14 @@ export default class Cell extends Component{
 
     const cellStyle = [styles.cell];
 
+    // TODO: Fix selection if new term is created
     if (this.props.active) cellStyle.push(styles.active);
 
     return (
       <TouchableHighlight
         style={StyleSheet.flatten(cellStyle)}
         onPress={() => this.pressed()}>
-        <Text style={styles.cellText}>{this.props.term}</Text>
+        <Text style={styles.cellText}>{this.props.term.title}</Text>
       </TouchableHighlight>
     );
   }
