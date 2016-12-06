@@ -10,12 +10,14 @@ export default class DeckSelection extends Component {
       const deckList = [];
 
       snap.forEach( (decks) => {
-        
+
         for (const deck in decks.val()) {
-          deckList.push(decks.val()[deck].title);
+          deckList.push({
+            title: decks.val()[deck].title,
+            key: deck
+          });
         }
       });
-
       this.props.actions.decksLoaded(deckList);
     });
   }
@@ -27,7 +29,7 @@ export default class DeckSelection extends Component {
   }
   
   itemClicked(deck) {
-    this.props.actions.selectDeck(deck);
+    this.props.actions.selectDeck(deck.key);
   }
 
   render() {
@@ -37,7 +39,7 @@ export default class DeckSelection extends Component {
     if (this.props.decks[0]) {
       this.props.decks.forEach( (deck) => {
         decks.push(<ListItem
-          name={deck}
+          name={deck.title}
           select={() => this.itemClicked(deck)}
         />)
       });

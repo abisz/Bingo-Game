@@ -8,7 +8,8 @@ const initialState = {
   activeCells: [],
   terms: [],
   termsSelected: [],
-  started: false
+  started: false,
+  view: 'Deck'
 };
 
 export default function bingo(state = initialState, action = {}) {
@@ -17,7 +18,8 @@ export default function bingo(state = initialState, action = {}) {
     case types.SELECT_DECK:
       return {
         ...state,
-        deckSelected: action.deck
+        deckSelected: action.deck,
+        view: 'Term'
       };
 
     case types.TOGGLE_TERM:
@@ -95,7 +97,8 @@ export default function bingo(state = initialState, action = {}) {
           terms: [],
           termsSelected: [],
           deckSelected: false,
-          readyToPlay: false
+          readyToPlay: false,
+          view: 'Deck'
         }
       }
 
