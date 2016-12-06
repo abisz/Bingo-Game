@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDD834'
   },
   active: {
-    backgroundColor: '#ff0000'
+    backgroundColor: '#4CD4B0'
   },
   cellText: {
     fontSize: 12,

@@ -4,7 +4,7 @@ import * as bingoActions from '../actions/bingoActions';
 import { connect } from 'react-redux';
 
 import { AlertIOS, Text } from 'react-native';
-import { Container, Header, Title, Content, Button, Icon} from 'native-base';
+import { Container, Header, Title, Content, Button, Icon, Fab} from 'native-base';
 
 import DeckSelection from '../components/DeckSelection';
 import TermSelection from '../components/TermSelection';
@@ -32,12 +32,43 @@ class BingoApp extends Component {
     this.props.actions.back();
   }
 
+  isDeckSelection() {
+    return this.props.state.terms.length === 0;
+  }
+
+  add() {
+    AlertIOS.prompt(
+      'Name of ' + (this.isDeckSelection() ? "Deck" : "Term"),
+      '',
+      [
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Save', onPress: name => this.save(name, this.isDeckSelection())},
+      ]
+    );
+  }
+
+  save(name, isDeck) {
+
+    if (isDeck) {
+      this.firebaseRef.child('decks').push({
+        title: name,
+        terms: []
+      });
+    } else {
+      this.firebaseRef.child('decks').child(this.props.state.deckSelected).child('terms').push({
+        title: name
+      })
+    }
+
+
+  }
+
   render() {
     const {state, actions} = this.props;
 
     // console.log(state);
 
-    let view, title, playBtn, backBtn;
+    let view, title, playBtn, backBtn, fab;
 
     backBtn = (<Button transparent
                        onPress={() => this.clickBack()}>
@@ -65,7 +96,7 @@ class BingoApp extends Component {
       if (state.readyToPlay) {
         playBtn = (<Button transparent
         onPress={() => this.clickStart()}>
-          <Icon name="ios-play" />
+          <Text>Start</Text>
         </Button>);
       } else {
         playBtn = (<Button disabled transparent>
@@ -81,11 +112,21 @@ class BingoApp extends Component {
       />);
     }
 
-    if (state.bingo) {
+    if (state.bingo && state.started) {
       AlertIOS.alert(
         'Christopher Waltz',
         'Oooh, that\'s a BINGO!'
       );
+    }
+
+    if (!state.started){
+      fab = (<Fab
+        active='true'
+        containerStyle={{ marginLeft: 10 }}
+        style={{ backgroundColor: '#4CD4B0' }}
+        onPress={() => this.add()}>
+        <Icon name="md-add" />
+      </Fab>);
     }
 
     return (
@@ -98,6 +139,7 @@ class BingoApp extends Component {
         <Content>
           {view}
         </Content>
+        {fab}
       </Container>
     );
   }
