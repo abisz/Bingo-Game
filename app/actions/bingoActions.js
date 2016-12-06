@@ -26,3 +26,10 @@ export function toggleCell(term) {
     term: term
   }
 }
+
+export function decksLoaded(decks) {
+  return {
+    type: types.DECKS_LOADED,
+    decks
+  }
+}

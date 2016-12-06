@@ -3,8 +3,8 @@ import * as types from '../actions/actionTypes';
 const bingoSize = 4;
 
 const initialState = {
-  decksAll: ['Harry Potter', 'Meeting', 'Lord of the Rings', 'Eurovision Song Contest'],
-  deckSelected: true,
+  decksAll: [],
+  deckSelected: false,
   activeCells: [],
   terms: ['Im Vorjahr gab es einen ähnlichen Song', 'Schräge Vögel sind dabei', 'Irgendwer erwähnt \"Ein bisschen Frieden\"',
   'Germany: 6 Points', 'Auftritt einer Boygroup', 'Falsche Brüste, falsche \nWimpern & falsche Haare',
@@ -23,7 +23,7 @@ const initialState = {
     'Outfits der Teilnehmer \nleuchten wie Diskokugeln', 'Nachbarschaftshilfe bei Ostblock-Staaten',
     'Bei Make-up gilt: Klotzen statt Kleckern', '\"This is ... calling\"', 'Mindestens eine Landesmoderatorin verwendet Botox',
     '\"It\'s Eurovision Tradition\"', 'Im letzten Jahr hat dieser Stil funktioniert', 'Ralph Siegel ist wieder dabei'],
-  started: true
+  started: false
 };
 
 export default function bingo(state = initialState, action = {}) {
@@ -80,6 +80,13 @@ export default function bingo(state = initialState, action = {}) {
         ...state,
         activeCells,
         bingo
+      };
+
+    case types.DECKS_LOADED:
+
+      return {
+        ...state,
+        decksAll: action.decks
       };
 
     default:

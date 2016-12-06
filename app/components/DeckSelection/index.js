@@ -18,27 +18,29 @@ export default class DeckSelection extends Component {
   }
 
   listenForDecks(decksRef) {
-    console.log('LISTENING FOR DECKS');
+    console.log('LISTENING FOR DECKS!');
 
     decksRef.on('value', (snap) => {
-      console.log('NEW SNAP');
-      snap.forEach( (deck) => {
-        console.log(deck);
+      const deckList = [];
 
+      snap.forEach( (decks) => {
+        
+        for (const deck in decks.val()) {
+          deckList.push(decks.val()[deck].title);
+        }
       });
+
+      this.props.actions.decksLoaded(deckList);
     });
   }
   
   componentDidMount() {
-
-    console.log('DECKSELECTION MOUNTING');
-    this.listenForDecks(this.decksRef);
-    
+    if ( ! this.props.decks[0]) {
+      this.listenForDecks(this.decksRef);
+    }
   }
   
   itemClicked(deck) {
-    console.log('Deck selected', deck);
-
     this.props.actions.selectDeck(deck);
   }
 
@@ -46,12 +48,14 @@ export default class DeckSelection extends Component {
 
     let decks = [];
 
-    this.props.decks.forEach( (deck) => {
-      decks.push(<ListItem
-        name={deck}
-        select={() => this.itemClicked(deck)}
-      />)
-    });
+    if (this.props.decks[0]) {
+      this.props.decks.forEach( (deck) => {
+        decks.push(<ListItem
+          name={deck}
+          select={() => this.itemClicked(deck)}
+        />)
+      });
+    }
 
     return (
       <View>
