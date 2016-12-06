@@ -18,7 +18,8 @@ export default class DeckSelection extends Component {
           });
         }
       });
-      this.props.actions.decksLoaded(deckList);
+
+      if (this.props.store.getState().bingo.view === 'Deck') this.props.actions.decksLoaded(deckList);
     });
   }
   

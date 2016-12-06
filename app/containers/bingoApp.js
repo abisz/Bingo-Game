@@ -57,9 +57,12 @@ class BingoApp extends Component {
   }
 
   render() {
-    const {state, actions} = this.props;
+    const {state, actions, store} = this.props;
 
     // console.log(state);
+    console.log('STOOOOOORE');
+    console.log(store.getState().bingo);
+
 
     let view, title, playBtn, backBtn, fab;
 
@@ -74,7 +77,9 @@ class BingoApp extends Component {
       view = (<DeckSelection
         decks={state.decksAll}
         actions={actions}
-        firebase={this.firebaseRef} />);
+        firebase={this.firebaseRef}
+        store={store}
+      />);
 
     } else if ( ! state.started ) {
       title = 'Term Selection';
@@ -84,7 +89,9 @@ class BingoApp extends Component {
         deck={state.deckSelected}
         selected={state.termsSelected}
         actions={actions}
-        firebase={this.firebaseRef}/>);
+        firebase={this.firebaseRef}
+        store={store}
+      />);
 
       if (state.readyToPlay) {
         playBtn = (<Button transparent

@@ -25,7 +25,7 @@ export default class TermSelection extends Component {
         }
       });
 
-      this.props.actions.termsLoaded(termsList);
+      if(this.props.store.getState().bingo.view === 'Term') this.props.actions.termsLoaded(termsList);
     });
   }
 
